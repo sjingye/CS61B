@@ -26,9 +26,8 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         if (length == size) {
             resize(2 * size);
         }
-
-        nextFirst = Math.floorMod(nextFirst - 1, length);
         items[nextFirst] = x;
+        nextFirst = Math.floorMod(nextFirst - 1, length);
         size += 1;
     }
 
@@ -44,9 +43,8 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         if (length == size) {
             resize(2 * size);
         }
-
-        nextLast = Math.floorMod(nextLast + 1, length);
         items[nextLast] = x;
+        nextLast = Math.floorMod(nextLast + 1, length);
         size += 1;
     }
 
@@ -58,10 +56,10 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     @Override
     public List<T> toList() {
         int length = items.length;
-        List<T> returnList = new ArrayList<>();
+        List<T> returnList = new ArrayList<>(length);
 
         for (int i = 0; i < length; i++) {
-            returnList.set(i, items[i]);
+            returnList.set(Math.floorMod(i + nextFirst + 1, length), items[i]);
         }
         return returnList;
     }
@@ -163,13 +161,30 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         return null;
     }
 
+    /*
+    public T getRecursive(int index) {
+        if (index < 0 || index >= size) {
+            return null;  // Return null if index is out of bounds
+        }
+        return getRecursiveHelper(index, front);
+    }
+
+    private T getRecursiveHelper(int index, int current) {
+        if (index == 0) {
+            return items[current];  // Base case: return the element when index is 0
+        }
+        // Recursive case: move to the next element and decrease index
+        return getRecursiveHelper(index - 1, Math.floorMod(current + 1, items.length));
+    }
+    */
+
     public void resize(int capacity) {
 
         T[] newItems = (T[]) new Object[capacity];
         int length = items.length;
 
-        for (int i = 0; i < capacity; i++) {
-            newItems[i] = items[Math.floorMod(i + nextFirst - 1, length)];
+        for (int i = 0; i < length; i++) {
+            newItems[i] = items[Math.floorMod(i + nextFirst + 1, length)];
         }
         items = newItems;
         nextFirst = 0;
