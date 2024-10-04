@@ -19,8 +19,6 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         items = (T[]) new Object[INITIAL_CAPACITY];
     }
 
-//    public Iterator<T> iterator() {};
-
     /**
      * Add {@code x} to the front of the deque. Assumes {@code x} is never null.
      *
@@ -185,5 +183,14 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         first = 0;
         last = size;
         items = newItems;
+    }
+    /**
+     * Returns an iterator over elements of type {@code T}.
+     *
+     * @return an Iterator.
+     */
+    @Override
+    public Iterator<T> iterator() {
+        return null;
     }
 }
