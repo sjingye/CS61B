@@ -19,7 +19,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         items = (T[]) new Object[INITIAL_CAPACITY];
     }
 
-    public Iterator<T> iterator() {};
+//    public Iterator<T> iterator() {};
 
     /**
      * Add {@code x} to the front of the deque. Assumes {@code x} is never null.
@@ -65,9 +65,9 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     @Override
     public List<T> toList() {
         int length = items.length;
-        List<T> newArray = new ArrayList<>(length);
-        for (int i = 0; i < length; i++) {
-            newArray.set(i, items[Math.floorMod(first + i, length)]);
+        List<T> newArray = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            newArray.add(items[Math.floorMod(first + i, length)]);
         }
         return newArray;
     }
