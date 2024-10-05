@@ -251,6 +251,10 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         Node current = head.next;
         while (current != tail) {
             s.append((current.data).toString());
+            if (current.next != tail) {
+                s.append(",");
+            }
+
             current = current.next;
         }
         s.append("]");

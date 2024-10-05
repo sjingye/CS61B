@@ -264,6 +264,9 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         StringBuilder s = new StringBuilder("[");
         for (int i = 0; i < size; i++) {
             s.append((items[Math.floorMod(first + i, length)]).toString());
+            if (i != size - 1) {
+                s.append(",");
+            }
         }
         s.append("]");
         return s.toString();
