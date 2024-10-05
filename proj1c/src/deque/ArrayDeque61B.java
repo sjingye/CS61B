@@ -228,4 +228,45 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
             throw new NoSuchElementException();
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (other instanceof ArrayDeque61B<?> otherSet) {
+            if (this.size != otherSet.size) {
+                return false;
+            }
+
+            for (T x : this) {
+                boolean found = false;
+
+                for (Object y : otherSet) {
+                    if (x.equals(y)) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        int length = items.length;
+        StringBuilder s = new StringBuilder("[");
+        for (int i = 0; i < size; i++) {
+            s.append((items[Math.floorMod(first + i, length)]).toString());
+        }
+        s.append("]");
+        return s.toString();
+    }
+
 }

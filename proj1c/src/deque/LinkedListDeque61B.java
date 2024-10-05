@@ -215,4 +215,46 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
             }
         };
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (other instanceof LinkedListDeque61B<?> otherSet) {
+            if (this.size != otherSet.size) {
+                return false;
+            }
+
+            for (T x : this) {
+                boolean found = false;
+
+                for (Object y : otherSet) {
+                    if (x.equals(y)) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder("[");
+        Node current = head.next;
+        while (current != tail) {
+            s.append((current.data).toString());
+            current = current.next;
+        }
+        s.append("]");
+        return s.toString();
+    }
+
 }
