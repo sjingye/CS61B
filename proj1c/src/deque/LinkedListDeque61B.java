@@ -3,6 +3,7 @@ package deque;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class LinkedListDeque61B<T> implements Deque61B<T> {
 
@@ -41,6 +42,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         head.next = newItem;
         newItem.prev = head;
         newItem.next = tempItem;
+        tempItem.prev = newItem;
         size += 1;
     }
 
@@ -56,6 +58,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         tempItem.next = newItem;
         newItem.prev = tempItem;
         newItem.next = tail;
+        tail.prev = newItem;
         size += 1;
     }
 
@@ -193,6 +196,23 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new Iterator<T>() {
+            private Node current = head.next;
+
+            @Override
+            public boolean hasNext() {
+                return current != tail;
+            }
+
+            @Override
+            public T next() {
+                if (current != tail) {
+                    T data = current.data;
+                    current = current.next;
+                    return data;
+                }
+                throw new NoSuchElementException();
+            }
+        };
     }
 }

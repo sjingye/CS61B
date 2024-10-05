@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.lang.Math;
+import java.util.NoSuchElementException;
 
 public class ArrayDeque61B<T> implements Deque61B<T> {
     private int size;
@@ -99,7 +100,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     public T removeFirst() {
         if (size == 0) {
             return null;
-        };
+        }
 
         int length = items.length;
 
@@ -125,7 +126,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     public T removeLast() {
         if (size == 0) {
             return null;
-        };
+        }
 
         int length = items.length;
 
@@ -191,6 +192,40 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
      */
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new ArrayIterator();
+    }
+
+    public class ArrayIterator implements Iterator<T> {
+        private int position;
+        public ArrayIterator() {
+            position = 0;
+        }
+        /**
+         * Returns {@code true} if the iteration has more elements.
+         * (In other words, returns {@code true} if {@link #next} would
+         * return an element rather than throwing an exception.)
+         *
+         * @return {@code true} if the iteration has more elements
+         */
+        @Override
+        public boolean hasNext() {
+            return position < size;
+        }
+
+        /**
+         * Returns the next element in the iteration.
+         *
+         * @return the next element in the iteration
+         * @throws NoSuchElementException if the iteration has no more elements
+         */
+        @Override
+        public T next() {
+            if (position < size) {
+                T Item = items[Math.floorMod(first + position, items.length)];
+                position += 1;
+                return Item;
+            }
+            throw new NoSuchElementException();
+        }
     }
 }
