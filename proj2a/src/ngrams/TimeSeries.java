@@ -1,7 +1,6 @@
 package ngrams;
 
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * An object for mapping a year number (e.g. 1996) to numerical data. Provides
@@ -31,6 +30,8 @@ public class TimeSeries extends TreeMap<Integer, Double> {
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
         // TODO: Fill in this constructor.
+        Map<Integer, Double> sub = ts.subMap(startYear, true, endYear, true);
+        this.putAll(sub);
     }
 
     /**
@@ -38,7 +39,8 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public List<Integer> years() {
         // TODO: Fill in this method.
-        return null;
+        Set<Integer> yearsSet = this.keySet();
+        return new ArrayList<>(yearsSet);
     }
 
     /**
@@ -47,7 +49,12 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public List<Double> data() {
         // TODO: Fill in this method.
-        return null;
+        List<Integer> years = this.years();
+        List<Double> values = new ArrayList<>();
+        for (Integer year : years) {
+            values.add(this.get(year));
+        }
+        return values;
     }
 
     /**
@@ -61,7 +68,18 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries plus(TimeSeries ts) {
         // TODO: Fill in this method.
-        return null;
+        TimeSeries result = new TimeSeries();
+        Set<Integer> allYears = new TreeSet<>(this.keySet());
+        allYears.addAll(ts.keySet());
+
+        for (Integer year : allYears) {
+            double valueFromThis = this.get(year) != null ? this.get(year) : 0; // Check if the value is null
+            double valueFromTS = ts.get(year) != null ? ts.get(year) : 0; // Check if the value is null
+
+            // Sum the values and put them in the result TimeSeries
+            result.put(year, valueFromThis + valueFromTS);
+        }
+        return result;
     }
 
     /**
@@ -75,7 +93,18 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries dividedBy(TimeSeries ts) {
         // TODO: Fill in this method.
-        return null;
+        TimeSeries result = new TimeSeries();
+        Set<Integer> years = new TreeSet<>(this.keySet());
+        for (Integer year : years) {
+            if (ts.containsKey(year)) {
+                double valueFromTS = ts.get(year);
+                double value = valueFromTS != 0.0 ? this.get(year) / valueFromTS : 0.0;
+                result.put(year, value);
+            } else {
+                throw new IllegalArgumentException();
+            }
+        }
+        return result;
     }
 
     // TODO: Add any private helper methods.
