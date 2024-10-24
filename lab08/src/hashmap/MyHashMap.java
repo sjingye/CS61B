@@ -159,7 +159,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * @return int
      */
     public Integer getIndex(K key) {
-        return Math.floorMod(key.hashCode(), buckets.length);
+        return key == null ? 0 : Math.floorMod(key.hashCode(), buckets.length);
     }
     /**
      * Returns whether this map contains a mapping for the specified key.
