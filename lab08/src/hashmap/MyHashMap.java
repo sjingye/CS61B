@@ -226,6 +226,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
             if (node.key.equals(key)) {
                 V value = node.value;
                 collection.remove(node);
+                size -= 1;
                 return value;
             }
         }
@@ -239,7 +240,6 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public Iterator<K> iterator() {
-        // throw UnsupportedOperationException();
-        return null;
+         throw new UnsupportedOperationException();
     }
 }
