@@ -2,9 +2,6 @@ package capers;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-
-import static capers.Dog.fromFile;
 import static capers.Utils.*;
 
 /** A repository for Capers 
@@ -87,7 +84,7 @@ public class CapersRepository {
      */
     public static void celebrateBirthday(String name) {
         // TODO
-        Dog dog = fromFile(name);
+        Dog dog = Dog.fromFile(name);
         dog.haveBirthday();
         dog.saveDog();
     }

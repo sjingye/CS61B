@@ -1,6 +1,7 @@
 package capers;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 
 import static capers.Utils.*;
@@ -59,11 +60,11 @@ public class Dog implements  Serializable{ // TODO
         // TODO (hint: don't forget dog names are unique)
         File newTxtFile = join(DOGS_FOLDER, name);
         writeObject(newTxtFile, this);
-//        try {
-//            newTxtFile.createNewFile();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            newTxtFile.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
